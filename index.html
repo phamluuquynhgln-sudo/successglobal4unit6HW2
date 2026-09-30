@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our School Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root{--navy:#111c37;--gold:#f5cf6b;--bg:#eef4fb;--card:#ffffff;--ink:#1d2745;--mute:#5d6886;--line:#c9d5e8;--coral:#ff7a59;--sky:#3a86ff;--ok:#1f9d5c;--okbg:#e3f7ec;--bad:#d93a3f;--badbg:#fde6e6;color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.45 Nunito,"Segoe UI",system-ui,sans-serif}
+#top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50}
+.brand{background:var(--navy);color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;text-align:center;padding:4px 8px}
+.bar{background:var(--card);border-bottom:2px solid var(--line);display:flex;align-items:center;gap:12px;padding:8px 16px}
+.bar b{font-family:"Baloo 2",Nunito,sans-serif;font-size:18px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{font-weight:800;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.meter{height:6px;background:var(--line)}.meter i{display:block;height:100%;width:0;background:var(--coral);transition:width .3s}
+main{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:20px 60px;display:flex;flex-direction:column;gap:28px}
+header.hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero h1{font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:clamp(28px,6vw,42px);line-height:1.1;margin:0;color:var(--navy);text-wrap:balance}
+.cbadge{background:var(--navy);color:var(--gold);border-radius:999px;padding:4px 14px;font-size:12px;font-weight:800;letter-spacing:1.5px}
+.namebox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.namebox input{font:inherit;padding:8px 12px;border:2px solid var(--line);border-radius:10px;width:min(260px,70vw);background:var(--card);color:var(--ink)}
+.howto{background:#fff7e0;border:2px dashed var(--gold);border-radius:14px;padding:10px 14px;font-size:15px;max-width:640px}
+section.ex{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 0 var(--line)}
+.ex h2{font-family:"Baloo 2",Nunito,sans-serif;font-size:22px;margin:0;color:var(--navy)}
+.ex h2 span{color:var(--coral)}
+.vi{color:var(--mute);font-size:14px;margin:2px 0 14px}
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:14px;background:#f4f7fc;border:2px solid var(--line);min-height:58px;align-items:center}
+.bank.sticky{position:sticky;top:78px;z-index:20}
+.bank:empty::before{content:"✔ Đã dùng hết thẻ";color:var(--mute);font-size:14px}
+.chip{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;background:var(--sky);color:#fff;font-weight:800;border-radius:12px;padding:8px 12px;font-size:15px;box-shadow:0 3px 0 #2462c7;line-height:1.2}
+.chip.sel{outline:3px solid var(--coral);outline-offset:2px;transform:translateY(-2px)}
+.chip.dragging{opacity:.35}
+.chip.ghost{position:fixed;z-index:999;pointer-events:none;opacity:.95;transform:rotate(-3deg) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+.chip.mark{font-size:26px;width:52px;height:52px;display:grid;place-items:center;padding:0}
+.chip.tick{background:var(--ok);box-shadow:0 3px 0 #13703f}.chip.cross{background:var(--bad);box-shadow:0 3px 0 #a02226}
+.slot{min-height:46px;border:2px dashed #9fb2d4;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:4px;background:#fafcff;transition:background .15s}
+.slot:empty::before{content:attr(data-ph);color:#9aa6bf;font-size:13px;text-align:center}
+.slot.hover{background:#fff1ea;border-color:var(--coral)}
+.slot .chip{box-shadow:none}
+.slot.ok{border:2px solid var(--ok);background:var(--okbg)}.slot.ok .chip{background:var(--ok);cursor:default}
+.slot.bad{border:2px solid var(--bad);background:var(--badbg)}.slot.bad .chip{background:var(--bad)}
+.slot.need{animation:blink 1s 2}
+@keyframes blink{50%{background:#ffe38a}}
+.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.grid{display:grid;gap:12px;margin-top:14px}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:720px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+@media(max-width:420px){.g3.ex2{grid-template-columns:1fr}}
+.card{border:2px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;position:relative}
+.card .no{position:absolute;top:6px;left:8px;font-weight:800;color:var(--coral);font-size:15px}
+.pic{height:110px;display:grid;place-items:center}.pic img{max-height:106px;max-width:100%;object-fit:contain}
+.opts{display:flex;flex-direction:column;gap:6px;min-height:0}
+.opts .chip{background:#fff;color:var(--ink);border:2px solid var(--sky);box-shadow:0 2px 0 #9fb2d4}
+.opts .chip.sel{border-color:var(--coral)}
+.q{font-weight:700;font-size:14px;color:var(--mute);text-align:center}
+.row3{border-top:2px dashed var(--line);padding-top:14px;margin-top:14px}
+.row3:first-of-type{border-top:0;padding-top:0}
+.rowlab{font-weight:800;color:var(--coral);margin-bottom:6px}
+.tf{display:flex;align-items:center;gap:10px}
+.tf .pic{flex:1}
+.tf .slot{width:64px;height:64px;flex:none}
+.tf .marks{display:flex;flex-direction:column;gap:6px}
+.sent{font-weight:800;text-align:center;border:2px dotted var(--line);border-radius:10px;padding:6px}
+.submitwrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+button.big{font:800 20px "Baloo 2",Nunito,sans-serif;background:var(--coral);color:#fff;border:0;border-radius:16px;padding:12px 38px;box-shadow:0 5px 0 #d65a3a;cursor:pointer}
+button.big:active{transform:translateY(3px);box-shadow:0 2px 0 #d65a3a}
+button:focus-visible,.chip:focus-visible,input:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.msg{font-weight:700;color:var(--bad);text-align:center;min-height:1.4em}
+footer{text-align:center;color:var(--mute);font-size:12px;opacity:.8}
+#ov{position:fixed;inset:0;background:rgba(17,28,55,.55);z-index:900;display:grid;place-items:center;padding:16px}
+.res{background:var(--card);border-radius:22px;max-width:420px;width:100%;padding:22px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.res .big1{font-size:54px;line-height:1}
+.res h3{font-family:"Baloo 2",Nunito,sans-serif;font-size:26px;margin:0;color:var(--navy)}
+.res .score{font:800 40px "Baloo 2",Nunito,sans-serif;color:var(--coral);font-variant-numeric:tabular-nums}
+.res .detail{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+.res .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.res button.alt{font:800 15px Nunito,sans-serif;background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 16px;cursor:pointer;color:var(--ink)}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:950}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.line{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-weight:700}
+.line .slot{min-width:118px;min-height:42px}
+.no9{color:var(--coral);font-weight:800}
+.bank.small{min-height:0;padding:6px;gap:6px}.bank.small .chip{font-size:14px;padding:6px 10px}
+.bank.small:empty::before{content:"";}
+.wline{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.slot.w{min-width:64px;min-height:44px}
+.rowlab{color:var(--ink)!important}
+#rows10 .rowlab::before{content:"💬 ";}
+</style>
+</head>
+<body>
+
+<div id="top">
+  <div class="brand" id="brand1"></div>
+  <div class="bar"><b>Our school · How many…? / Is there…?</b><span class="prog" id="prog">0/26</span></div>
+  <div class="meter"><i id="meter"></i></div>
+</div>
+
+<main>
+  <header class="hero">
+    <h1>Our school</h1>
+    <span class="cbadge" id="brand2"></span>
+    <div class="namebox"><label for="sname">Tên con:</label><input id="sname" placeholder="Nhập tên con…" autocomplete="off"></div>
+    <div class="howto">👉 <b>Kéo</b> thẻ màu xanh thả vào ô trống. Trên điện thoại, con có thể <b>chạm vào thẻ</b> rồi <b>chạm vào ô</b>. Chạm lại vào thẻ trong ô để lấy ra. Làm hết 2 bài rồi bấm <b>Nộp bài</b> nhé!</div>
+  </header>
+
+  <section class="ex" id="ex9">
+    <h2><span>Exercise 9.</span> Read and complete the sentence.</h2>
+    <p class="vi">Kéo thẻ đúng vào 2 ô: ô trong câu hỏi và ô đầu câu trả lời. Nhớ: <b>one / a</b> → <b>There is</b>; từ 2 trở lên → <b>There are</b>.</p>
+    <div class="grid g2" id="grid9"></div>
+  </section>
+
+  <section class="ex" id="ex10">
+    <h2><span>Exercise 10.</span> Make questions for these answers.</h2>
+    <p class="vi">Sắp xếp các thẻ thành câu hỏi đúng. Chú ý: câu trả lời dùng <b>my</b> thì câu hỏi dùng <b>your</b>. Có 1 thẻ thừa ở một số câu.</p>
+    <div id="rows10"></div>
+  </section>
+
+  <div class="submitwrap">
+    <div class="msg" id="msg"></div>
+    <button class="big" id="submit">📨 Nộp bài</button>
+  </div>
+  <footer id="foot"></footer>
+</main>
+
+<div id="ov" hidden><div class="res" id="res"></div></div>
+<canvas id="cf" hidden></canvas>
+
+<script>
+const CENTER = "QUEEN ENGLISH CENTER";
+const UNIT = "Our school · Exercise 9 & 10";
+const PASS = 0.95;
+document.getElementById('brand1').textContent = '👑 ' + CENTER;
+document.getElementById('brand2').textContent = '👑 ' + CENTER;
+document.getElementById('foot').textContent = '👑 ' + CENTER + ' · ' + UNIT;
+
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+function mkChip(val, group, home, i, extra) {
+  const c = el('div', 'chip' + (extra ? ' ' + extra : ''), val);
+  c.dataset.val = val; c.dataset.g = group; c.dataset.i = i; c.tabIndex = 0;
+  c.home = home; home.appendChild(c); return c;
+}
+function mkSlot(ans, group, ph, item) {
+  const s = el('div', 'slot'); s.dataset.ans = ans; s.dataset.g = group; s.dataset.ph = ph || 'Thả vào đây'; s.dataset.item = item; s.tabIndex = 0; return s;
+}
+function shuffled(arr, seed) {
+  const a = arr.map((v, i) => [v, i]); let s = seed * 9301 + 49297;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let k = 0; k < 8; k++) {
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    if (a.some(([v, i], n) => i !== n)) break;
+  }
+  return a.map(x => x[0]);
+}
+
+/* ---------- Exercise 9 ---------- */
+const EX9_CHIPS = ["is there", "are there", "There is", "There are"];
+const EX9 = [
+  ["chairs", "twenty chairs.", "There are"], ["desks", "a desk.", "There is"],
+  ["bags", "five bags.", "There are"], ["computer rooms", "one computer room.", "There is"],
+  ["classrooms", "thirty classrooms.", "There are"], ["art rooms", "one art room.", "There is"],
+  ["music rooms", "one music room.", "There is"], ["playgrounds", "three playgrounds.", "There are"],
+  ["books", "ten books.", "There are"], ["students", "fifty students.", "There are"],
+  ["gardens", "one garden.", "There is"], ["pens", "four pens in the pencil case.", "There are"],
+  ["teachers", "forty teachers.", "There are"]
+];
+EX9.forEach(([noun, rest, a], i) => {
+  const g = 'e9_' + i, it = 'e9_' + i, c = el('div', 'card');
+  const q = el('div', 'line'); q.append(el('span', 'no9', (i + 1) + '.'), el('span', '', 'How many ' + noun));
+  q.appendChild(mkSlot('are there', g, '……', it)); q.append(el('span', '', '?'));
+  const ans = el('div', 'line'); ans.appendChild(mkSlot(a, g, '……', it)); ans.append(el('span', '', rest));
+  const bank = el('div', 'bank small'); EX9_CHIPS.forEach((w, j) => mkChip(w, g, bank, j));
+  c.append(q, ans, bank); $('#grid9').appendChild(c);
+});
+
+/* ---------- Exercise 10 ---------- */
+const EX10 = [
+  ["There is a computer room at my school.", ["Is","there","a","computer room","at","your","school?"], "my"],
+  ["There are two playgrounds at my school.", ["How","many","playgrounds","are","there","at","your","school?"], "my"],
+  ["My school is in the town.", ["Where","is","your","school?"], "my"],
+  ["There is a garden at my school.", ["Is","there","a","garden","at","your","school?"], "my"],
+  ["There are four buildings at my school.", ["How","many","buildings","are","there","at","your","school?"], "my"],
+  ["There are five books in the bag.", ["How","many","books","are","there","in","the","bag?"], null],
+  ["There is a library at my school.", ["Is","there","a","library","at","your","school?"], "my"],
+  ["There are thirty-five classrooms at my school.", ["How","many","classrooms","are","there","at","your","school?"], "my"],
+  ["There is a music room at my school.", ["Is","there","a","music room","at","your","school?"], "my"],
+  ["There are 2 desks in my classroom.", ["How","many","desks","are","there","in","your","classroom?"], "my"],
+  ["There are forty chairs in my classroom.", ["How","many","chairs","are","there","in","your","classroom?"], "my"],
+  ["There is a picture on the wall.", ["Is","there","a","picture","on","the","wall?"], null],
+  ["There are thirty-seven teachers in my school.", ["How","many","teachers","are","there","in","your","school?"], "my"]
+];
+EX10.forEach(([ansTxt, words, extra], i) => {
+  const g = 'e10_' + i, it = 'e10_' + i, wrap = el('div', 'row3');
+  wrap.appendChild(el('div', 'rowlab', (i + 1) + ') ' + ansTxt));
+  const bank = el('div', 'bank');
+  shuffled(extra ? words.concat(extra) : words, i + 3).forEach((w, n) => mkChip(w, g, bank, n));
+  const line = el('div', 'wline');
+  words.forEach(w => { const s = mkSlot(w, g, '…', it); s.classList.add('w'); line.appendChild(s); });
+  wrap.append(bank, line); $('#rows10').appendChild(wrap);
+});
+
+const SLOTS = [...document.querySelectorAll('.slot')];
+const ITEM_MAP = {}; SLOTS.forEach(s => (ITEM_MAP[s.dataset.item] = ITEM_MAP[s.dataset.item] || []).push(s));
+const ITEMS = Object.values(ITEM_MAP);
+const TOTAL = ITEMS.length;
+/* ---------- place / return ---------- */
+function goHome(c) {
+  const h = c.home, i = +c.dataset.i;
+  const after = [...h.children].find(x => +x.dataset.i > i);
+  h.insertBefore(c, after || null);
+  c.classList.remove('sel');
+}
+function place(c, s) {
+  if (s.classList.contains('lock')) return;
+  if (s.dataset.g !== c.dataset.g) { s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); return; }
+  const cur = s.querySelector('.chip'); if (cur && cur !== c) goHome(cur);
+  const from = c.parentElement; if (from.classList && from.classList.contains('slot')) from.classList.remove('ok', 'bad');
+  s.appendChild(c); c.classList.remove('sel'); s.classList.remove('ok', 'bad', 'need');
+  update();
+}
+function update() {
+  const n = ITEMS.filter(it => it.every(s => s.querySelector('.chip'))).length;
+  $('#prog').textContent = 'Đã làm ' + n + '/' + TOTAL;
+  $('#meter').style.width = (n / TOTAL * 100) + '%';
+  if (n === TOTAL) $('#msg').textContent = '';
+}
+
+/* ---------- drag & tap ---------- */
+let sel = null, drag = null;
+function select(c) { if (sel) sel.classList.remove('sel'); sel = (sel === c) ? null : c; if (sel) sel.classList.add('sel'); }
+document.addEventListener('pointerdown', e => {
+  const c = e.target.closest('.chip');
+  if (!c || c.closest('.lock')) return;
+  e.preventDefault();
+  drag = { c, x: e.clientX, y: e.clientY, moved: false, ghost: null, hover: null };
+});
+document.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.moved && Math.hypot(dx, dy) > 6) {
+    drag.moved = true;
+    const r = drag.c.getBoundingClientRect();
+    drag.ox = drag.x - r.left; drag.oy = drag.y - r.top;
+    const g = drag.c.cloneNode(true); g.classList.add('ghost'); g.classList.remove('sel');
+    g.style.width = r.width + 'px'; document.body.appendChild(g); drag.ghost = g;
+    drag.c.classList.add('dragging');
+  }
+  if (!drag.moved) return;
+  drag.ghost.style.left = (e.clientX - drag.ox) + 'px';
+  drag.ghost.style.top = (e.clientY - drag.oy) + 'px';
+  const t = document.elementFromPoint(e.clientX, e.clientY);
+  const s = t && t.closest('.slot');
+  if (drag.hover && drag.hover !== s) drag.hover.classList.remove('hover');
+  if (s && s.dataset.g === drag.c.dataset.g && !s.classList.contains('lock')) { s.classList.add('hover'); drag.hover = s; } else drag.hover = null;
+  const H = window.innerHeight;
+  if (e.clientY < 110) window.scrollBy(0, -12); else if (e.clientY > H - 60) window.scrollBy(0, 12);
+});
+function endDrag(e, cancel) {
+  if (!drag) return;
+  const d = drag; drag = null;
+  if (d.hover) d.hover.classList.remove('hover');
+  if (d.moved) {
+    d.ghost.remove(); d.c.classList.remove('dragging');
+    if (cancel) return;
+    const t = document.elementFromPoint(e.clientX, e.clientY);
+    const s = t && t.closest('.slot');
+    if (s) place(d.c, s);
+    else if (d.c.parentElement.classList.contains('slot')) { d.c.parentElement.classList.remove('ok', 'bad'); goHome(d.c); update(); }
+    if (sel) { sel.classList.remove('sel'); sel = null; }
+  } else if (!cancel) {
+    if (d.c.parentElement.classList.contains('slot')) { d.c.parentElement.classList.remove('ok', 'bad'); goHome(d.c); sel = null; update(); }
+    else select(d.c);
+  }
+}
+document.addEventListener('pointerup', e => endDrag(e, false));
+document.addEventListener('pointercancel', e => endDrag(e, true));
+document.addEventListener('click', e => {
+  const s = e.target.closest('.slot');
+  if (!s || e.target.closest('.chip')) return;
+  if (sel) { place(sel, s); sel = null; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const c = e.target.closest && e.target.closest('.chip'), s = e.target.closest && e.target.closest('.slot');
+  if (c) { e.preventDefault(); if (c.parentElement.classList.contains('slot')) { goHome(c); update(); } else select(c); }
+  else if (s && sel) { e.preventDefault(); place(sel, s); sel = null; }
+});
+
+/* ---------- submit (cham theo cau) ---------- */
+const ov = $('#ov'), res = $('#res');
+$('#submit').addEventListener('click', () => {
+  const empty = SLOTS.filter(s => !s.querySelector('.chip'));
+  if (empty.length) {
+    $('#msg').textContent = 'Con còn ' + empty.length + ' ô chưa làm. Làm hết rồi nộp bài nhé!';
+    empty.forEach(s => { s.classList.remove('need'); void s.offsetWidth; s.classList.add('need'); });
+    empty[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  let ok = 0; const per = { e9: [0, 0], e10: [0, 0] };
+  ITEMS.forEach(it => {
+    let all = true;
+    it.forEach(s => { const good = s.querySelector('.chip').dataset.val === s.dataset.ans; s.classList.toggle('ok', good); s.classList.toggle('bad', !good); if (!good) all = false; });
+    const k = it[0].dataset.item.split('_')[0]; per[k][1]++;
+    if (all) { ok++; per[k][0]++; }
+  });
+  const pct = Math.round(ok / TOTAL * 1000) / 10;
+  const need = Math.ceil(TOTAL * PASS);
+  const name = $('#sname').value.trim();
+  const detail = 'Bài 9: ' + per.e9.join('/') + ' · Bài 10: ' + per.e10.join('/');
+  res.innerHTML = '';
+  if (ok >= need) {
+    res.append(el('div', 'big1', '🏆'), el('h3', '', 'Xuất sắc' + (name ? ', ' + name : '') + '!'),
+      el('div', 'score', ok + '/' + TOTAL), el('div', '', pct + '% · Con đã hoàn thành bài về nhà thật giỏi!'),
+      el('div', 'detail', detail), el('span', 'cbadge', '👑 ' + CENTER));
+    const b = el('button', 'alt', 'Xem lại bài'); b.onclick = () => { ov.hidden = true; };
+    const w = el('div', 'btns'); w.append(b); res.append(w);
+    confetti();
+  } else {
+    res.append(el('div', 'big1', '💪'), el('h3', '', (name ? name + ' ơi, ' : '') + 'cố thêm chút nữa nhé!'),
+      el('div', 'score', ok + '/' + TOTAL), el('div', '', pct + '% · Cần đúng từ ' + need + '/' + TOTAL + ' câu (95%) để hoàn thành.'),
+      el('div', 'detail', detail),
+      el('div', '', 'Các ô màu đỏ là chỗ chưa đúng. Con sửa lại rồi nộp bài lần nữa nhé!'),
+      el('span', 'cbadge', '👑 ' + CENTER));
+    const b1 = el('button', 'big', 'Làm lại câu sai');
+    b1.onclick = () => {
+      ov.hidden = true;
+      SLOTS.forEach(s => { if (s.classList.contains('ok')) s.classList.add('lock'); });
+      const bad = SLOTS.filter(s => s.classList.contains('bad'));
+      bad.forEach(s => { const c = s.querySelector('.chip'); s.classList.remove('bad'); goHome(c); });
+      update();
+      if (bad[0]) bad[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    const b2 = el('button', 'alt', 'Làm lại từ đầu');
+    b2.onclick = () => {
+      ov.hidden = true;
+      SLOTS.forEach(s => { const c = s.querySelector('.chip'); s.classList.remove('ok', 'bad', 'lock'); if (c) goHome(c); });
+      update(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const w = el('div', 'btns'); w.append(b1, b2); res.append(w);
+  }
+  ov.hidden = false;
+});
+ov.addEventListener('click', e => { if (e.target === ov) ov.hidden = true; });
+
+/* ---------- confetti ---------- */
+function confetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = $('#cf'), x = cv.getContext('2d'); cv.hidden = false;
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ['#ff7a59', '#f5cf6b', '#3a86ff', '#1f9d5c', '#e84393'];
+  const P = Array.from({ length: 160 }, () => ({ x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * .6, vx: (Math.random() - .5) * 3, vy: 2 + Math.random() * 3, r: Math.random() * 6.28, s: 6 + Math.random() * 6, c: cols[Math.random() * 5 | 0] }));
+  let f = 0;
+  (function tick() {
+    x.clearRect(0, 0, cv.width, cv.height);
+    P.forEach(p => { p.x += p.vx; p.y += p.vy; p.r += .1; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); });
+    if (++f < 240) requestAnimationFrame(tick); else { cv.hidden = true; }
+  })();
+}
+update();
+</script>
+</body>
+</html>
